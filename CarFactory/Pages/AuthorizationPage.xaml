@@ -1,0 +1,36 @@
+﻿<Page x:Class="CarFactory.Pages.AuthorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CarFactory.Pages"
+      mc:Ignorable="d"
+      Title="AuthorizationPage" Height="450" Width="800">
+    <Page.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Label Content="Login:" />
+            <TextBox x:Name="LoginTb" />
+            <Label Content="Password:" />
+            <PasswordBox x:Name="PasswordTb" />
+            <Button Content="Login" Width="150" Margin="10" Height="40"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

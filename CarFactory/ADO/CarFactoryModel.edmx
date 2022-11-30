@@ -1,0 +1,687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarFactoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Automobile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Generation" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Construction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutomobileId" Type="int" Nullable="false" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstructionProcess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConstructionId" Type="int" Nullable="false" />
+          <Property Name="CompletedStep" Type="int" Nullable="false" />
+          <Property Name="DateCompleted" Type="date" Nullable="false" />
+          <Property Name="CompletedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstructionStep">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutomobileId" Type="int" Nullable="false" />
+          <Property Name="StepNumber" Type="int" Nullable="false" />
+          <Property Name="StepName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConstructionStepRequirement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
+          <Property Name="RequiredStepId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Construct__Autom__5BE2A6F2">
+          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
+          <End Role="Construction" Type="Self.Construction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Construction">
+              <PropertyRef Name="AutomobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login__UserId__5EBF139D">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolePermi__Permi__5AEE82B9">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_Construction">
+          <End Role="Construction" Type="Self.Construction" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Construction">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="ConstructionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_ConstructionStep">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="CompletedStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="CompletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStep_Automobile">
+          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStep">
+              <PropertyRef Name="AutomobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStepRequirement_ConstructionStep">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionStepRequirement" Type="Self.ConstructionStepRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStepRequirement">
+              <PropertyRef Name="RequiredStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStepRequirement_ConstructionStep1">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionStepRequirement" Type="Self.ConstructionStepRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStepRequirement">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarFactoryModelStoreContainer">
+          <EntitySet Name="Automobile" EntityType="Self.Automobile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Construction" EntityType="Self.Construction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionProcess" EntityType="Self.ConstructionProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionStep" EntityType="Self.ConstructionStep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConstructionStepRequirement" EntityType="Self.ConstructionStepRequirement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RolePermission].[Id] AS [Id], 
+    [RolePermission].[RoleId] AS [RoleId], 
+    [RolePermission].[StepId] AS [StepId]
+    FROM [dbo].[RolePermission] AS [RolePermission]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Construct__Autom__5BE2A6F2" Association="Self.FK__Construct__Autom__5BE2A6F2">
+            <End Role="Automobile" EntitySet="Automobile" />
+            <End Role="Construction" EntitySet="Construction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login__UserId__5EBF139D" Association="Self.FK__Login__UserId__5EBF139D">
+            <End Role="User" EntitySet="User" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolePermi__Permi__5AEE82B9" Association="Self.FK__RolePermi__Permi__5AEE82B9">
+            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_Construction" Association="Self.FK_ConstructionProcess_Construction">
+            <End Role="Construction" EntitySet="Construction" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_ConstructionStep" Association="Self.FK_ConstructionProcess_ConstructionStep">
+            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_User" Association="Self.FK_ConstructionProcess_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStep_Automobile" Association="Self.FK_ConstructionStep_Automobile">
+            <End Role="Automobile" EntitySet="Automobile" />
+            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStepRequirement_ConstructionStep" Association="Self.FK_ConstructionStepRequirement_ConstructionStep">
+            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
+            <End Role="ConstructionStepRequirement" EntitySet="ConstructionStepRequirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStepRequirement_ConstructionStep1" Association="Self.FK_ConstructionStepRequirement_ConstructionStep1">
+            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
+            <End Role="ConstructionStepRequirement" EntitySet="ConstructionStepRequirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarFactoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Automobile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Generation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Constructions" Relationship="Self.FK__Construct__Autom__5BE2A6F2" FromRole="Automobile" ToRole="Construction" />
+          <NavigationProperty Name="ConstructionSteps" Relationship="Self.FK_ConstructionStep_Automobile" FromRole="Automobile" ToRole="ConstructionStep" />
+        </EntityType>
+        <EntityType Name="Construction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutomobileId" Type="Int32" Nullable="false" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Automobile" Relationship="Self.FK__Construct__Autom__5BE2A6F2" FromRole="Construction" ToRole="Automobile" />
+          <NavigationProperty Name="ConstructionProcesses" Relationship="Self.FK_ConstructionProcess_Construction" FromRole="Construction" ToRole="ConstructionProcess" />
+        </EntityType>
+        <EntityType Name="ConstructionProcess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConstructionId" Type="Int32" Nullable="false" />
+          <Property Name="CompletedStep" Type="Int32" Nullable="false" />
+          <Property Name="DateCompleted" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Construction" Relationship="Self.FK_ConstructionProcess_Construction" FromRole="ConstructionProcess" ToRole="Construction" />
+          <NavigationProperty Name="ConstructionStep" Relationship="Self.FK_ConstructionProcess_ConstructionStep" FromRole="ConstructionProcess" ToRole="ConstructionStep" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ConstructionProcess_User" FromRole="ConstructionProcess" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ConstructionStep">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutomobileId" Type="Int32" Nullable="false" />
+          <Property Name="StepNumber" Type="Int32" Nullable="false" />
+          <Property Name="StepName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Automobile" Relationship="Self.FK_ConstructionStep_Automobile" FromRole="ConstructionStep" ToRole="Automobile" />
+          <NavigationProperty Name="ConstructionProcesses" Relationship="Self.FK_ConstructionProcess_ConstructionStep" FromRole="ConstructionStep" ToRole="ConstructionProcess" />
+          <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__Permi__5AEE82B9" FromRole="ConstructionStep" ToRole="RolePermission" />
+          <NavigationProperty Name="ConstructionStepRequirements" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep" FromRole="ConstructionStep" ToRole="ConstructionStepRequirement" />
+          <NavigationProperty Name="ConstructionStepRequirements1" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep1" FromRole="ConstructionStep" ToRole="ConstructionStepRequirement" />
+        </EntityType>
+        <EntityType Name="ConstructionStepRequirement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
+          <Property Name="RequiredStepId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConstructionStep" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep" FromRole="ConstructionStepRequirement" ToRole="ConstructionStep" />
+          <NavigationProperty Name="ConstructionStep1" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep1" FromRole="ConstructionStepRequirement" ToRole="ConstructionStep" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Login1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Login__UserId__5EBF139D" FromRole="Login" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RolePermissions" Relationship="Self.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConstructionProcesses" Relationship="Self.FK_ConstructionProcess_User" FromRole="User" ToRole="ConstructionProcess" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK__Login__UserId__5EBF139D" FromRole="User" ToRole="Login" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConstructionStep" Relationship="Self.FK__RolePermi__Permi__5AEE82B9" FromRole="RolePermission" ToRole="ConstructionStep" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK__Construct__Autom__5BE2A6F2">
+          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
+          <End Role="Construction" Type="Self.Construction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Construction">
+              <PropertyRef Name="AutomobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStep_Automobile">
+          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStep">
+              <PropertyRef Name="AutomobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_Construction">
+          <End Role="Construction" Type="Self.Construction" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Construction">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="ConstructionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_ConstructionStep">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="CompletedStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionProcess_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ConstructionProcess" Type="Self.ConstructionProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionProcess">
+              <PropertyRef Name="CompletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolePermi__Permi__5AEE82B9">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStepRequirement_ConstructionStep">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionStepRequirement" Type="Self.ConstructionStepRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStepRequirement">
+              <PropertyRef Name="RequiredStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConstructionStepRequirement_ConstructionStep1">
+          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
+          <End Role="ConstructionStepRequirement" Type="Self.ConstructionStepRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConstructionStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConstructionStepRequirement">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login__UserId__5EBF139D">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarFactoryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Automobiles" EntityType="Self.Automobile" />
+          <EntitySet Name="Constructions" EntityType="Self.Construction" />
+          <EntitySet Name="ConstructionProcesses" EntityType="Self.ConstructionProcess" />
+          <EntitySet Name="ConstructionSteps" EntityType="Self.ConstructionStep" />
+          <EntitySet Name="ConstructionStepRequirements" EntityType="Self.ConstructionStepRequirement" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
+          <AssociationSet Name="FK__Construct__Autom__5BE2A6F2" Association="Self.FK__Construct__Autom__5BE2A6F2">
+            <End Role="Automobile" EntitySet="Automobiles" />
+            <End Role="Construction" EntitySet="Constructions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStep_Automobile" Association="Self.FK_ConstructionStep_Automobile">
+            <End Role="Automobile" EntitySet="Automobiles" />
+            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_Construction" Association="Self.FK_ConstructionProcess_Construction">
+            <End Role="Construction" EntitySet="Constructions" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_ConstructionStep" Association="Self.FK_ConstructionProcess_ConstructionStep">
+            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionProcess_User" Association="Self.FK_ConstructionProcess_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ConstructionProcess" EntitySet="ConstructionProcesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolePermi__Permi__5AEE82B9" Association="Self.FK__RolePermi__Permi__5AEE82B9">
+            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStepRequirement_ConstructionStep" Association="Self.FK_ConstructionStepRequirement_ConstructionStep">
+            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
+            <End Role="ConstructionStepRequirement" EntitySet="ConstructionStepRequirements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConstructionStepRequirement_ConstructionStep1" Association="Self.FK_ConstructionStepRequirement_ConstructionStep1">
+            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
+            <End Role="ConstructionStepRequirement" EntitySet="ConstructionStepRequirements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login__UserId__5EBF139D" Association="Self.FK__Login__UserId__5EBF139D">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Login" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarFactoryModelStoreContainer" CdmEntityContainer="CarFactoryEntities">
+          <EntitySetMapping Name="Automobiles">
+            <EntityTypeMapping TypeName="CarFactoryModel.Automobile">
+              <MappingFragment StoreEntitySet="Automobile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Generation" ColumnName="Generation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constructions">
+            <EntityTypeMapping TypeName="CarFactoryModel.Construction">
+              <MappingFragment StoreEntitySet="Construction">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AutomobileId" ColumnName="AutomobileId" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionProcesses">
+            <EntityTypeMapping TypeName="CarFactoryModel.ConstructionProcess">
+              <MappingFragment StoreEntitySet="ConstructionProcess">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConstructionId" ColumnName="ConstructionId" />
+                <ScalarProperty Name="CompletedStep" ColumnName="CompletedStep" />
+                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+                <ScalarProperty Name="CompletedBy" ColumnName="CompletedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionSteps">
+            <EntityTypeMapping TypeName="CarFactoryModel.ConstructionStep">
+              <MappingFragment StoreEntitySet="ConstructionStep">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AutomobileId" ColumnName="AutomobileId" />
+                <ScalarProperty Name="StepNumber" ColumnName="StepNumber" />
+                <ScalarProperty Name="StepName" ColumnName="StepName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConstructionStepRequirements">
+            <EntityTypeMapping TypeName="CarFactoryModel.ConstructionStepRequirement">
+              <MappingFragment StoreEntitySet="ConstructionStepRequirement">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+                <ScalarProperty Name="RequiredStepId" ColumnName="RequiredStepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="CarFactoryModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Login1" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CarFactoryModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarFactoryModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissions">
+            <EntityTypeMapping TypeName="CarFactoryModel.RolePermission">
+              <MappingFragment StoreEntitySet="RolePermission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a062987e3194501af754fa1f577a592" Name="Diagram1">
+        <EntityTypeShape EntityType="CarFactoryModel.Automobile" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.Construction" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.ConstructionProcess" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.ConstructionStep" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.ConstructionStepRequirement" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.Login" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.Role" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.User" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarFactoryModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="CarFactoryModel.FK__Construct__Autom__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionStep_Automobile" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionProcess_Construction" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionProcess_ConstructionStep" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionProcess_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK__RolePermi__Permi__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionStepRequirement_ConstructionStep" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_ConstructionStepRequirement_ConstructionStep1" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK__Login__UserId__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_RolePermission_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="CarFactoryModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
