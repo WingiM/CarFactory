@@ -120,6 +120,9 @@
     <Compile Include="Pages\DirectorPage.xaml.cs">
       <DependentUpon>DirectorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\EmployeePage.xaml.cs">
+      <DependentUpon>EmployeePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PermissionPage.xaml.cs">
       <DependentUpon>PermissionPage.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,7 @@
     <Page Include="Pages\AddEmployeePage.xaml" />
     <Page Include="Pages\AuthorizationPage.xaml" />
     <Page Include="Pages\DirectorPage.xaml" />
+    <Page Include="Pages\EmployeePage.xaml" />
     <Page Include="Pages\PermissionPage.xaml" />
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

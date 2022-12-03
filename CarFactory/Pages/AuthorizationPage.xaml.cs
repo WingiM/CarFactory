@@ -43,7 +43,7 @@ namespace CarFactory.Pages
                 case 1:
                     return new DirectorPage(); 
                 default:
-                    throw new Exception();
+                    return new EmployeePage();
             }
         }
     }
