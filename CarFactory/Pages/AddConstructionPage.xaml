@@ -1,0 +1,41 @@
+﻿<Page x:Class="CarFactory.Pages.AddConstructionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CarFactory.Pages"
+      mc:Ignorable="d"
+      Title="AddConstructionPage" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Content="Go back" Click="GoBackButton_Click" />
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Label Content="Automobile:" />
+            <ComboBox x:Name="CarComboBox">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Brand}" />
+                            <Run Text="{Binding Model}" />
+                            <Run Text="-" />
+                            <Run Text="Generation №" />
+                            <Run Text="{Binding Generation}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Count:" />
+            <TextBox x:Name="CountTb" />
+            <Button Content="Add constructions" Width="150" Margin="10" Height="40" Click="AddConstructionButton_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

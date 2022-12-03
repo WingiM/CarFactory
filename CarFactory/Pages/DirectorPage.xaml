@@ -13,12 +13,22 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Content="Hire new employee" Click="HireEmployeeButton_Click" />
-        <Button Grid.Column="2" Grid.Row="0" Content="Add new car" Click="AddNewCarButton_Click" />
+        <Button Content="Hire new employee" Click="HireEmployeeButton_Click" Height="50" />
+        <Button Grid.Column="2" Grid.Row="0" Content="Add new car" Click="AddNewCarButton_Click" Height="50" />
+        <Button Grid.Row="2" Click="AddNewConstruction_Click" Height="50">
+            <Button.Content>
+                <TextBlock Text="Start new construction" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Grid.Column="2" Grid.Row="2" Click="GivePermissionToRole_Click" Height="50">
+            <Button.Content>
+                <TextBlock Text="Give permissions" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
             <Label Content="Search by car:" HorizontalAlignment="Center" />
             <ComboBox x:Name="CarComboBox" SelectionChanged="CarComboBox_OnSelectionChanged">
@@ -34,7 +44,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Content="Clear search results" Width="150" Click="ClearSearchButton_Click"/>
+            <Button Content="Clear search results" Width="150" Click="ClearSearchButton_Click" />
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel>
@@ -69,6 +79,7 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
+                                <Button Content="Mark completed"></Button>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
