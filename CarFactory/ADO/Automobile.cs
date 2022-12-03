@@ -18,7 +18,6 @@ namespace CarFactory.ADO
         public Automobile()
         {
             this.Constructions = new HashSet<Construction>();
-            this.ConstructionSteps = new HashSet<ConstructionStep>();
         }
     
         public int Id { get; set; }
@@ -28,7 +27,5 @@ namespace CarFactory.ADO
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Construction> Constructions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ConstructionStep> ConstructionSteps { get; set; }
     }
 }

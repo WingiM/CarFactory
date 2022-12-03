@@ -37,7 +37,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AutomobileId" Type="int" Nullable="false" />
           <Property Name="StepNumber" Type="int" Nullable="false" />
           <Property Name="StepName" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -46,8 +45,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StepId" Type="int" Nullable="false" />
           <Property Name="RequiredStepId" Type="int" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -65,13 +64,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RolePermission">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="StepId" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
@@ -157,18 +152,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ConstructionStep_Automobile">
-          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
-          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Automobile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConstructionStep">
-              <PropertyRef Name="AutomobileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ConstructionStepRequirement_ConstructionStep">
           <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="1" />
           <End Role="ConstructionStepRequirement" Type="Self.ConstructionStepRequirement" Multiplicity="*" />
@@ -177,7 +160,7 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ConstructionStepRequirement">
-              <PropertyRef Name="RequiredStepId" />
+              <PropertyRef Name="StepId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -189,7 +172,7 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ConstructionStepRequirement">
-              <PropertyRef Name="StepId" />
+              <PropertyRef Name="RequiredStepId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -225,14 +208,8 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <EntitySet Name="ConstructionStepRequirement" EntityType="Self.ConstructionStepRequirement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RolePermission].[Id] AS [Id], 
-    [RolePermission].[RoleId] AS [RoleId], 
-    [RolePermission].[StepId] AS [StepId]
-    FROM [dbo].[RolePermission] AS [RolePermission]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Construct__Autom__5BE2A6F2" Association="Self.FK__Construct__Autom__5BE2A6F2">
             <End Role="Automobile" EntitySet="Automobile" />
             <End Role="Construction" EntitySet="Construction" />
@@ -256,10 +233,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <AssociationSet Name="FK_ConstructionProcess_User" Association="Self.FK_ConstructionProcess_User">
             <End Role="User" EntitySet="User" />
             <End Role="ConstructionProcess" EntitySet="ConstructionProcess" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConstructionStep_Automobile" Association="Self.FK_ConstructionStep_Automobile">
-            <End Role="Automobile" EntitySet="Automobile" />
-            <End Role="ConstructionStep" EntitySet="ConstructionStep" />
           </AssociationSet>
           <AssociationSet Name="FK_ConstructionStepRequirement_ConstructionStep" Association="Self.FK_ConstructionStepRequirement_ConstructionStep">
             <End Role="ConstructionStep" EntitySet="ConstructionStep" />
@@ -292,7 +265,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Generation" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Constructions" Relationship="Self.FK__Construct__Autom__5BE2A6F2" FromRole="Automobile" ToRole="Construction" />
-          <NavigationProperty Name="ConstructionSteps" Relationship="Self.FK_ConstructionStep_Automobile" FromRole="Automobile" ToRole="ConstructionStep" />
         </EntityType>
         <EntityType Name="Construction">
           <Key>
@@ -322,10 +294,8 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AutomobileId" Type="Int32" Nullable="false" />
           <Property Name="StepNumber" Type="Int32" Nullable="false" />
           <Property Name="StepName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Automobile" Relationship="Self.FK_ConstructionStep_Automobile" FromRole="ConstructionStep" ToRole="Automobile" />
           <NavigationProperty Name="ConstructionProcesses" Relationship="Self.FK_ConstructionProcess_ConstructionStep" FromRole="ConstructionStep" ToRole="ConstructionProcess" />
           <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__Permi__5AEE82B9" FromRole="ConstructionStep" ToRole="RolePermission" />
           <NavigationProperty Name="ConstructionStepRequirements" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep" FromRole="ConstructionStep" ToRole="ConstructionStepRequirement" />
@@ -336,8 +306,8 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StepId" Type="Int32" Nullable="false" />
           <Property Name="RequiredStepId" Type="Int32" Nullable="false" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ConstructionStep" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep" FromRole="ConstructionStepRequirement" ToRole="ConstructionStep" />
           <NavigationProperty Name="ConstructionStep1" Relationship="Self.FK_ConstructionStepRequirement_ConstructionStep1" FromRole="ConstructionStepRequirement" ToRole="ConstructionStep" />
         </EntityType>
@@ -360,6 +330,16 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <NavigationProperty Name="RolePermissions" Relationship="Self.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
           <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="StepId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConstructionStep" Relationship="Self.FK__RolePermi__Permi__5AEE82B9" FromRole="RolePermission" ToRole="ConstructionStep" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -371,18 +351,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <NavigationProperty Name="Logins" Relationship="Self.FK__Login__UserId__5EBF139D" FromRole="User" ToRole="Login" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
-        <EntityType Name="RolePermission">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="StepId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="StepId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ConstructionStep" Relationship="Self.FK__RolePermi__Permi__5AEE82B9" FromRole="RolePermission" ToRole="ConstructionStep" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
-        </EntityType>
         <Association Name="FK__Construct__Autom__5BE2A6F2">
           <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
           <End Role="Construction" Type="Self.Construction" Multiplicity="*" />
@@ -391,18 +359,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Construction">
-              <PropertyRef Name="AutomobileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ConstructionStep_Automobile">
-          <End Role="Automobile" Type="Self.Automobile" Multiplicity="1" />
-          <End Role="ConstructionStep" Type="Self.ConstructionStep" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Automobile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ConstructionStep">
               <PropertyRef Name="AutomobileId" />
             </Dependent>
           </ReferentialConstraint>
@@ -463,7 +419,7 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ConstructionStepRequirement">
-              <PropertyRef Name="RequiredStepId" />
+              <PropertyRef Name="StepId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -475,7 +431,7 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ConstructionStepRequirement">
-              <PropertyRef Name="StepId" />
+              <PropertyRef Name="RequiredStepId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -523,15 +479,11 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
           <EntitySet Name="ConstructionStepRequirements" EntityType="Self.ConstructionStepRequirement" />
           <EntitySet Name="Logins" EntityType="Self.Login" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK__Construct__Autom__5BE2A6F2" Association="Self.FK__Construct__Autom__5BE2A6F2">
             <End Role="Automobile" EntitySet="Automobiles" />
             <End Role="Construction" EntitySet="Constructions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConstructionStep_Automobile" Association="Self.FK_ConstructionStep_Automobile">
-            <End Role="Automobile" EntitySet="Automobiles" />
-            <End Role="ConstructionStep" EntitySet="ConstructionSteps" />
           </AssociationSet>
           <AssociationSet Name="FK_ConstructionProcess_Construction" Association="Self.FK_ConstructionProcess_Construction">
             <End Role="Construction" EntitySet="Constructions" />
@@ -610,7 +562,6 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
             <EntityTypeMapping TypeName="CarFactoryModel.ConstructionStep">
               <MappingFragment StoreEntitySet="ConstructionStep">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AutomobileId" ColumnName="AutomobileId" />
                 <ScalarProperty Name="StepNumber" ColumnName="StepNumber" />
                 <ScalarProperty Name="StepName" ColumnName="StepName" />
               </MappingFragment>
@@ -620,8 +571,8 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
             <EntityTypeMapping TypeName="CarFactoryModel.ConstructionStepRequirement">
               <MappingFragment StoreEntitySet="ConstructionStepRequirement">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StepId" ColumnName="StepId" />
                 <ScalarProperty Name="RequiredStepId" ColumnName="RequiredStepId" />
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -643,21 +594,21 @@ warning 6002: The table/view 'CarFactory.dbo.RolePermission' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="CarFactoryModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RolePermissions">
             <EntityTypeMapping TypeName="CarFactoryModel.RolePermission">
               <MappingFragment StoreEntitySet="RolePermission">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="StepId" ColumnName="StepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarFactoryModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -15,8 +15,8 @@ namespace CarFactory.ADO
     public partial class ConstructionStepRequirement
     {
         public int Id { get; set; }
-        public int StepId { get; set; }
         public int RequiredStepId { get; set; }
+        public int StepId { get; set; }
     
         public virtual ConstructionStep ConstructionStep { get; set; }
         public virtual ConstructionStep ConstructionStep1 { get; set; }

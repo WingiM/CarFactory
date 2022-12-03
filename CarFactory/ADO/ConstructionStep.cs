@@ -24,11 +24,9 @@ namespace CarFactory.ADO
         }
     
         public int Id { get; set; }
-        public int AutomobileId { get; set; }
         public int StepNumber { get; set; }
         public string StepName { get; set; }
     
-        public virtual Automobile Automobile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConstructionProcess> ConstructionProcesses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

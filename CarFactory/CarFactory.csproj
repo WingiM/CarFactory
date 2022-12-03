@@ -105,8 +105,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Pages\AddCarPage.xaml.cs">
+      <DependentUpon>AddCarPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddEmployeePage.xaml.cs">
+      <DependentUpon>AddEmployeePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DirectorPage.xaml.cs">
+      <DependentUpon>DirectorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -139,29 +148,30 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Pages\AddCarPage.xaml" />
+    <Page Include="Pages\AddEmployeePage.xaml" />
+    <Page Include="Pages\AuthorizationPage.xaml" />
+    <Page Include="Pages\DirectorPage.xaml" />
+    <Page Include="Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ADO\CarFactoryModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CarFactoryModel.Context.cs</LastGenOutput>
       <DependentUpon>CarFactoryModel.edmx</DependentUpon>
+      <LastGenOutput>CarFactoryModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ADO\CarFactoryModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CarFactoryModel.edmx</DependentUpon>
       <LastGenOutput>CarFactoryModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Pages\AuthorizationPage.xaml" />
-    <Page Include="Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

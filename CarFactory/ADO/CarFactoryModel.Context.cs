@@ -32,7 +32,7 @@ namespace CarFactory.ADO
         public virtual DbSet<ConstructionStepRequirement> ConstructionStepRequirements { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
