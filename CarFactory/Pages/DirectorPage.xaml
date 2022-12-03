@@ -79,7 +79,6 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                                <Button Content="Mark completed"></Button>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

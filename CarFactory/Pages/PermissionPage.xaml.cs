@@ -41,6 +41,18 @@ namespace CarFactory.Pages
             App.Connection.SaveChanges();
             MessageBox.Show("Successfully added new permission");
             PermissionComboBox.SelectedItem = null;
+            UpdateExistingPermissions();
+        }
+
+        private void RoleComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateExistingPermissions();
+        }
+
+        private void UpdateExistingPermissions()
+        {
+            ExistingPermissionsListView.ItemsSource =
+                App.Connection.RolePermissions.Where(x => x.RoleId == ((Role)RoleComboBox.SelectedItem).Id).ToList();
         }
     }
 }
