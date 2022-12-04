@@ -17,7 +17,11 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Content="Hire new employee" Click="HireEmployeeButton_Click" Height="50" />
+        <Button Click="HireEmployeeButton_Click" Height="50">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" Text="Hire new employee" TextAlignment="Center"></TextBlock>
+            </Button.Content>
+        </Button>
         <Button Grid.Column="2" Grid.Row="0" Content="Add new car" Click="AddNewCarButton_Click" Height="50" />
         <Button Grid.Row="2" Click="AddNewConstruction_Click" Height="50">
             <Button.Content>
@@ -48,7 +52,7 @@
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel>
-                <Label HorizontalAlignment="Center" Content="Ongoing constructions:"></Label>
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Ongoing constructions:"></Label>
                 <ListView x:Name="ConstructionsListView" VerticalAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -83,7 +87,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label HorizontalAlignment="Center" Content="Completed constructions:"></Label>
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Completed constructions:"></Label>
                 <ListView x:Name="CompletedConstructionsListView" VerticalAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>

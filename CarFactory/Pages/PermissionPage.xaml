@@ -39,16 +39,20 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label Content="Existing permissions:"></Label>
-            <ListView x:Name="ExistingPermissionsListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <Run Text="{Binding ConstructionStep.StepName}"/>
-                        </TextBlock>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ScrollViewer Height="100">
+                <StackPanel>
+                    <Label Content="Existing permissions:"></Label>
+                    <ListView x:Name="ExistingPermissionsListView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Run Text="{Binding ConstructionStep.StepName}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
             <Button Content="Add permission" Width="150" Margin="10" Height="40" Click="AddPermissionButton_Click" />
         </StackPanel>
     </Grid>

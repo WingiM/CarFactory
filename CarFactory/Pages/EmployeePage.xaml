@@ -7,6 +7,88 @@
       mc:Ignorable="d"
       Title="EmployeePage" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Width="150" Height="50" Content="My progress" Click="MyProgressButton_Click"></Button>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel VerticalAlignment="Center">
+                <Label Grid.Row="1">
+                    <Label.Content>
+                        <TextBlock TextAlignment="Center" TextWrapping="Wrap">Constructions you can participate in:</TextBlock>
+                    </Label.Content>
+                </Label>
+                <ListBox x:Name="ConstructionsListBox" SelectionChanged="ConstructionsListBox_OnSelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock>
+                                    <Run Text="Construction №: " />
+                                    <Run Text="{Binding Id}" />
+                                </TextBlock>
+                                <TextBlock Text="Automobile:"></TextBlock>
+                                <TextBlock>
+                                    <Run Text="{Binding Automobile.Brand}" />
+                                    <Run Text="{Binding Automobile.Model}" />
+                                    <Run Text="-" />
+                                    <Run Text="Generation №" />
+                                    <Run Text="{Binding Automobile.Generation}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Content="Currently completed steps:"></Label>
+            <ListView x:Name="CompletedStepsListView">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <ListView x:Name="ConsturctionStepsListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock>
+                                    <Run Text="{Binding StepNumber}" />
+                                    <Run Text="{Binding StepName}" />
+                                </TextBlock>
+                                <TextBlock Text="Required steps:"></TextBlock>
+                                <ListView ItemsSource="{Binding ConstructionStepRequirements}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ConstructionStep1.StepNumber}"></TextBlock>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"></StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                </ListView>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="2" Grid.Column="1" Content="Complete this step" Click="CompleteStepButton_Click"></Button>
     </Grid>
 </Page>

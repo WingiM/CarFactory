@@ -28,6 +28,12 @@ namespace CarFactory.Pages
                 return;
             }
 
+            if (App.Connection.Logins.FirstOrDefault(x => x.Login1 == LoginTb.Text) != null)
+            {
+                MessageBox.Show("Person with same login already exists");
+                return;
+            }
+
             var user = new User { Name = fields[2], Role = (Role)RoleComboBox.SelectedItem };
             var login = new Login { Login1 = fields[0], Password = fields[1], User = user };
 
