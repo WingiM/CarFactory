@@ -8,10 +8,10 @@
       Title="AuthorizationPage" Height="450" Width="800">
     <Page.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Height" Value="30" />
         </Style>
         <Style TargetType="PasswordBox">
-            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Height" Value="30" />
         </Style>
     </Page.Resources>
     <Grid>
@@ -30,7 +30,7 @@
             <TextBox x:Name="LoginTb" />
             <Label Content="Пароль:" />
             <PasswordBox x:Name="PasswordTb" />
-            <Button Content="Войти" Width="150" Margin="10" Height="40" Click="LoginButton_Click"></Button>
+            <Button Content="Войти" Width="150" Margin="10" Height="40" Click="LoginButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

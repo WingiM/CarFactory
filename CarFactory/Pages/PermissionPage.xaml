@@ -41,7 +41,7 @@
             </ComboBox>
             <ScrollViewer Height="100">
                 <StackPanel>
-                    <Label Content="Существующие разрешения:"></Label>
+                    <Label Content="Существующие разрешения:" />
                     <ListView x:Name="ExistingPermissionsListView">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -53,7 +53,11 @@
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
-            <Button Content="Добавить разрешение" Width="150" Margin="10" Height="40" Click="AddPermissionButton_Click" />
+            <Button Width="150" Margin="10" Height="50" Click="AddPermissionButton_Click">
+                <Button.Content>
+                    <TextBlock TextAlignment="Center" Text="Добавить разрешение" TextWrapping="Wrap" />
+                </Button.Content>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

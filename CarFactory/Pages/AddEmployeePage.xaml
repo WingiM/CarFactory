@@ -33,7 +33,7 @@
             <TextBox x:Name="LoginTb" />
             <Label Content="Пароль:" />
             <PasswordBox x:Name="PasswordTb" />
-            <Button Content="Зарегистрироваться" Width="150" Margin="10" Height="40" Click="RegisterButton_Click"></Button>
+            <Button Content="Зарегистрироваться" Width="150" Margin="10" Height="40" Click="RegisterButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

@@ -30,7 +30,7 @@
                                         <Run Text="Производство №: " />
                                         <Run Text="{Binding Construction.Id}" />
                                     </TextBlock>
-                                    <TextBlock Text="Автомобиль:"></TextBlock>
+                                    <TextBlock Text="Автомобиль:" />
                                     <TextBlock>
                                         <Run Text="{Binding Construction.Automobile.Brand}" />
                                         <Run Text="{Binding Construction.Automobile.Model}" />

@@ -25,7 +25,11 @@
             <TextBox x:Name="ModelTb" />
             <Label Content="Поколение №:" />
             <TextBox x:Name="GenerationTb" />
-        <Button Content="Добавить машину" Width="150" Margin="10" Height="40" Click="AddCarButton_Click" />
+        <Button Width="150" Margin="10" Height="50" Click="AddCarButton_Click">
+            <Button.Content>
+                <TextBlock Text="Добавить машину" TextWrapping="Wrap" TextAlignment="Center" />
+            </Button.Content>
+        </Button>
         </StackPanel>
     </Grid>
 </Page>

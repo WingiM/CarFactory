@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarFactory"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
+        Title="Автомобильный конвейер" Height="600" Width="1000" MinHeight="600" MinWidth="1000">
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

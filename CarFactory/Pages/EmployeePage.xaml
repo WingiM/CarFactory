@@ -17,10 +17,10 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Width="150" Height="50" Content="Прогресс" Click="MyProgressButton_Click"></Button>
+        <Button Width="150" Height="50" Content="Прогресс" Click="MyProgressButton_Click" />
         <ScrollViewer Grid.Row="1">
             <StackPanel VerticalAlignment="Center">
-                <Label Grid.Row="1">
+                <Label>
                     <Label.Content>
                         <TextBlock TextAlignment="Center" TextWrapping="Wrap">Производства в которых вы участвуете:</TextBlock>
                     </Label.Content>
@@ -33,7 +33,7 @@
                                     <Run Text="Производство №: " />
                                     <Run Text="{Binding Id}" />
                                 </TextBlock>
-                                <TextBlock Text="Автомобиль:"></TextBlock>
+                                <TextBlock Text="Автомобиль:" />
                                 <TextBlock>
                                     <Run Text="{Binding Automobile.Brand}" />
                                     <Run Text="{Binding Automobile.Model}" />
@@ -47,15 +47,13 @@
                 </ListBox>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
-
-        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5" />
         <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal">
-            <Label VerticalAlignment="Center" Content="Выполненные шаги: "></Label>
+            <Label VerticalAlignment="Center" Content="Выполненные шаги: " />
             <ListView x:Name="CompletedStepsListView">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"></StackPanel>
+                        <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
@@ -70,16 +68,16 @@
                                     <Run Text="{Binding StepNumber}" />
                                     <Run Text="{Binding StepName}" />
                                 </TextBlock>
-                                <TextBlock Text="Необходимые шаги:"></TextBlock>
+                                <TextBlock Text="Необходимые шаги:" />
                                 <ListView ItemsSource="{Binding ConstructionStepRequirements}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding ConstructionStep1.StepNumber}"></TextBlock>
+                                            <TextBlock Text="{Binding ConstructionStep1.StepNumber}" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal"></StackPanel>
+                                            <StackPanel Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                 </ListView>
@@ -89,6 +87,6 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <Button Grid.Row="2" Grid.Column="1" Content="Выполнить шаг" Click="CompleteStepButton_Click"></Button>
+        <Button Grid.Row="2" Grid.Column="1" Content="Выполнить шаг" Click="CompleteStepButton_Click" />
     </Grid>
 </Page>

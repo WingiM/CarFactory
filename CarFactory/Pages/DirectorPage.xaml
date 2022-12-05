@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CarFactory.Pages"
       mc:Ignorable="d"
-      Title="DirectorPage" Height="450" Width="800">
+      Title="DirectorPage" Height="450" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -17,46 +17,50 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Click="HireEmployeeButton_Click" Height="50">
-            <Button.Content>
-                <TextBlock TextWrapping="Wrap" Text="Нанять работника" TextAlignment="Center"></TextBlock>
-            </Button.Content>
-        </Button>
-        <Button Grid.Column="2" Grid.Row="0" Click="AddNewCarButton_Click" Height="50">
-            <Button.Content>
-                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Добавить машину"></TextBlock>
-            </Button.Content>
-        </Button>
-        <Button Grid.Row="2" Click="AddNewConstruction_Click" Height="50">
-            <Button.Content>
-                <TextBlock Text="Постройка авто" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-            </Button.Content>
-        </Button>
-        <Button Grid.Column="2" Grid.Row="2" Click="GivePermissionToRole_Click" Height="50">
-            <Button.Content>
-                <TextBlock Text="Выдать разрешения" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-            </Button.Content>
-        </Button>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <Label Content="Поиск по автомобилю:" HorizontalAlignment="Center" />
-            <ComboBox x:Name="CarComboBox" SelectionChanged="CarComboBox_OnSelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <Run Text="{Binding Brand}" />
-                            <Run Text="{Binding Model}" />
-                            <Run Text="-" />
-                            <Run Text="Поколение №" />
-                            <Run Text="{Binding Generation}" />
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button Content="Очистить поиск" Width="150" Click="ClearSearchButton_Click" />
+        <StackPanel Grid.Row="1" Margin="5" VerticalAlignment="Center">
+            <Button Click="HireEmployeeButton_Click" Height="50">
+                <Button.Content>
+                    <TextBlock TextWrapping="Wrap" Text="Нанять работника" TextAlignment="Center" />
+                </Button.Content>
+            </Button>
+            <Button Click="AddNewCarButton_Click" Height="50">
+                <Button.Content>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Добавить машину" />
+                </Button.Content>
+            </Button>
+            <Button Click="AddNewConstruction_Click" Height="50">
+                <Button.Content>
+                    <TextBlock Text="Постройка авто" TextWrapping="Wrap" TextAlignment="Center" />
+                </Button.Content>
+            </Button>
+            <Button Click="GivePermissionToRole_Click" Height="50">
+                <Button.Content>
+                    <TextBlock Text="Разрешения" TextWrapping="Wrap" TextAlignment="Center" />
+                </Button.Content>
+            </Button>
         </StackPanel>
+        <Border Grid.Column="1"  BorderBrush="Black" BorderThickness="2">
+            <StackPanel VerticalAlignment="Center">
+                <Label Content="Поиск по автомобилю:" HorizontalAlignment="Center" />
+                <ComboBox x:Name="CarComboBox" SelectionChanged="CarComboBox_OnSelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding Brand}" />
+                                <Run Text="{Binding Model}" />
+                                <Run Text="-" />
+                                <Run Text="Поколение №" />
+                                <Run Text="{Binding Generation}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="Очистить поиск" Margin="10" Width="150" Click="ClearSearchButton_Click" />
+            </StackPanel>
+        </Border>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel>
-                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Активные производства"></Label>
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Активные производства" />
                 <ListView x:Name="ConstructionsListView" VerticalAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -65,7 +69,7 @@
                                     <Run Text="Производство №: " />
                                     <Run Text="{Binding Id}" />
                                 </TextBlock>
-                                <TextBlock Text="Автомобиль:"></TextBlock>
+                                <TextBlock Text="Автомобиль:" />
                                 <TextBlock>
                                     <Run Text="{Binding Automobile.Brand}" />
                                     <Run Text="{Binding Automobile.Model}" />
@@ -73,8 +77,9 @@
                                     <Run Text="Поколение №" />
                                     <Run Text="{Binding Automobile.Generation}" />
                                 </TextBlock>
-                                <TextBlock Text="Выполненные шаги:"></TextBlock>
-                                <ListView Background="LightGray" BorderBrush="Black" BorderThickness="2" ItemsSource="{Binding ConstructionProcesses}">
+                                <TextBlock Text="Выполненные шаги:" />
+                                <ListView Background="LightGray" BorderBrush="Black" BorderThickness="2"
+                                          ItemsSource="{Binding ConstructionProcesses}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock>
@@ -91,7 +96,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Оконченные производства"></Label>
+                <Label FontWeight="Bold" HorizontalAlignment="Center" Content="Оконченные производства" />
                 <ListView x:Name="CompletedConstructionsListView" VerticalAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -100,7 +105,7 @@
                                     <Run Text="Производство №: " />
                                     <Run Text="{Binding Id}" />
                                 </TextBlock>
-                                <TextBlock Text="Автомобиль:"></TextBlock>
+                                <TextBlock Text="Автомобиль:" />
                                 <TextBlock>
                                     <Run Text="{Binding Automobile.Brand}" />
                                     <Run Text="{Binding Automobile.Model}" />

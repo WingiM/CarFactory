@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="main">
-                <Setter></Setter>
+                <Setter />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
