@@ -26,11 +26,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <Label Content="Login:" />
+            <Label Content="Логин:" />
             <TextBox x:Name="LoginTb" />
-            <Label Content="Password:" />
+            <Label Content="Пароль:" />
             <PasswordBox x:Name="PasswordTb" />
-            <Button Content="Login" Width="150" Margin="10" Height="40" Click="LoginButton_Click"></Button>
+            <Button Content="Войти" Width="150" Margin="10" Height="40" Click="LoginButton_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

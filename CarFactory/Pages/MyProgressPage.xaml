@@ -17,7 +17,7 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Content="Go back" Click="GoBackButton_Click" />
+        <Button Content="Назад" Click="GoBackButton_Click" />
         <ScrollViewer Grid.Row="1" Grid.Column="1">
 
             <StackPanel>
@@ -27,19 +27,19 @@
                             <Border BorderBrush="Black" BorderThickness="2">
                                 <StackPanel HorizontalAlignment="Stretch">
                                     <TextBlock>
-                                        <Run Text="Construction №: " />
+                                        <Run Text="Производство №: " />
                                         <Run Text="{Binding Construction.Id}" />
                                     </TextBlock>
-                                    <TextBlock Text="Automobile:"></TextBlock>
+                                    <TextBlock Text="Автомобиль:"></TextBlock>
                                     <TextBlock>
                                         <Run Text="{Binding Construction.Automobile.Brand}" />
                                         <Run Text="{Binding Construction.Automobile.Model}" />
                                         <Run Text="-" />
-                                        <Run Text="Generation №" />
+                                        <Run Text="Поколение №" />
                                         <Run Text="{Binding Construction.Automobile.Generation}" />
                                     </TextBlock>
                                     <TextBlock>
-                                        <Run Text="Step completed: " />
+                                        <Run Text="Выполненный шаг: " />
                                         <Run FontWeight="Bold" Text="{Binding ConstructionStep.StepNumber}" />
                                         <Run FontWeight="Bold" Text="{Binding ConstructionStep.StepName}" />
                                     </TextBlock>

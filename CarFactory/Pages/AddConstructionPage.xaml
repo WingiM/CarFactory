@@ -17,9 +17,9 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Content="Go back" Click="GoBackButton_Click" />
+        <Button Content="Назад" Click="GoBackButton_Click" />
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <Label Content="Automobile:" />
+            <Label Content="Автомобиль:" />
             <ComboBox x:Name="CarComboBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -33,9 +33,9 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label Content="Count:" />
+            <Label Content="Количество:" />
             <TextBox x:Name="CountTb" />
-            <Button Content="Add constructions" Width="150" Margin="10" Height="40" Click="AddConstructionButton_Click" />
+            <Button Content="Начать производство" Width="150" Margin="10" Height="40" Click="AddConstructionButton_Click" />
         </StackPanel>
     </Grid>
 </Page>
